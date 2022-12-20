@@ -17,7 +17,9 @@ import org.json.JSONObject
 
 
 class MapleViewModel(application: Application) : AndroidViewModel(application) {
-    data class Maple(var id: Int, var job_name: String, var job_group: String, var image: String)
+    data class Maple(var id: Int, var job_name: String, var job_group: String,
+                     var image: String, var job_line: String, var race: String,
+                     var main_weapon: String, var main_stat: String, var namu: String)
 
     companion object {
         const val QUEUE_TAG = "MapleVolleyRequest"
@@ -81,8 +83,13 @@ class MapleViewModel(application: Application) : AndroidViewModel(application) {
             val job_name = item.getString("job_name")
             val job_group = item.getString("job_group")
             val image = item.getString("img")
+            val job_line = item.getString("job_line")
+            val race = item.getString("race")
+            val main_weapon = item.getString("main_weapon")
+            val main_stat = item.getString("main_stat")
+            val namu = item.getString("namu")
 
-            jobs.add(Maple(id, job_name, job_group, image))
+            jobs.add(Maple(id, job_name, job_group, image, job_line, race, main_weapon, main_stat, namu))
         }
     }
 

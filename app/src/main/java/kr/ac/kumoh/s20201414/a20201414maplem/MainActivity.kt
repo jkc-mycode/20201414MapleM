@@ -53,12 +53,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onClick(v: View?) {
                 val intent = Intent(applicationContext, MapleActivity::class.java)
-                intent.putExtra(MapleActivity.KEY_JOB_NAME,
-                    model.list.value?.get(adapterPosition)?.job_name)
-                intent.putExtra(MapleActivity.KEY_JOB_GROUP,
-                    model.list.value?.get(adapterPosition)?.job_group)
-                intent.putExtra(MapleActivity.KEY_JOB_IMAGE,
-                    model.getImageUrl(adapterPosition))
+                intent.putExtra(MapleActivity.KEY_JOB_NAME, model.list.value?.get(adapterPosition)?.job_name)
+                intent.putExtra(MapleActivity.KEY_JOB_GROUP, model.list.value?.get(adapterPosition)?.job_group)
+                intent.putExtra(MapleActivity.KEY_JOB_IMAGE, model.getImageUrl(adapterPosition))
+                intent.putExtra(MapleActivity.KEY_JOB_LINE, model.list.value?.get(adapterPosition)?.job_line)
+                intent.putExtra(MapleActivity.KEY_JOB_RACE, model.list.value?.get(adapterPosition)?.race)
+                intent.putExtra(MapleActivity.KEY_MAIN_WEAPON, model.list.value?.get(adapterPosition)?.main_weapon)
+                intent.putExtra(MapleActivity.KEY_MAIN_STAT, model.list.value?.get(adapterPosition)?.main_stat)
+                intent.putExtra(MapleActivity.KEY_NAMU, model.list.value?.get(adapterPosition)?.namu)
                 startActivity(intent)
             }
         }
@@ -71,9 +73,7 @@ class MainActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.txJobName.text = model.list.value?.get(position)?.job_name.toString()
             holder.txJovGroup.text = model.list.value?.get(position)?.job_group.toString()
-
             holder.niImage.setImageUrl(model.getImageUrl(position), model.imageLoader)
-
         }
 
         override fun getItemCount() = model.list.value?.size ?: 0

@@ -1,7 +1,9 @@
 package kr.ac.kumoh.s20201414.a20201414maplem
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.LruCache
@@ -11,9 +13,14 @@ import kr.ac.kumoh.s20201414.a20201414maplem.databinding.ActivityMapleBinding
 
 class MapleActivity : AppCompatActivity() {
     companion object {
-        const val KEY_JOB_NAME = "JobName"
-        const val KEY_JOB_GROUP = "JobGroup"
-        const val KEY_JOB_IMAGE = "JobImage"
+        const val KEY_JOB_NAME = "JobName" //직업명
+        const val KEY_JOB_GROUP = "JobGroup" //직업군
+        const val KEY_JOB_IMAGE = "JobImage" //캐릭터 이미지
+        const val KEY_JOB_LINE = "JobLine" //직업계열
+        const val KEY_JOB_RACE = "JobRace" //종족
+        const val KEY_MAIN_WEAPON = "MainWeapon" //주무기
+        const val KEY_MAIN_STAT = "MainStat" //주스탯
+        const val KEY_NAMU = "Namu" //나무위키 주소
     }
     private lateinit var binding:ActivityMapleBinding
     private lateinit var imageLoader: ImageLoader
@@ -39,9 +46,14 @@ class MapleActivity : AppCompatActivity() {
         binding.imageJob.setImageUrl(intent.getStringExtra(KEY_JOB_IMAGE), imageLoader)
         binding.textJobName.text = intent.getStringExtra(KEY_JOB_NAME)
         binding.textJobGroup.text = "직업군 : " + intent.getStringExtra(KEY_JOB_GROUP)
-        binding.textJobLine.text = "직업계열 : " + intent.getStringExtra(KEY_JOB_GROUP)
-        binding.textRace.text = "종족명 : " + intent.getStringExtra(KEY_JOB_GROUP)
-        binding.textMainWeapon.text = "주무기 : " + intent.getStringExtra(KEY_JOB_GROUP)
-        binding.textMainStat.text = "주스탯 : " + intent.getStringExtra(KEY_JOB_GROUP)
+        binding.textJobLine.text = "직업계열 : " + intent.getStringExtra(KEY_JOB_LINE)
+        binding.textRace.text = "종족명 : " + intent.getStringExtra(KEY_JOB_RACE)
+        binding.textMainWeapon.text = "주무기 : " + intent.getStringExtra(KEY_MAIN_WEAPON)
+        binding.textMainStat.text = "주스탯 : " + intent.getStringExtra(KEY_MAIN_STAT)
+        binding.textNamu.setOnClickListener{
+            val uri = Uri.parse(intent.getStringExtra(KEY_NAMU))
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
     }
 }
