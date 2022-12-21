@@ -31,6 +31,7 @@ class MapleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        //이미지 데이터 요청하기
         imageLoader = ImageLoader(Volley.newRequestQueue(this),
             object : ImageLoader.ImageCache {
                 private val cache = LruCache<String, Bitmap>(100)
@@ -43,6 +44,7 @@ class MapleActivity : AppCompatActivity() {
                 }
             }
         )
+        //xml에 있는 각 항목에 데이터를 집어 넣음 (intent로 받아온 데이터를)
         binding.imageJob.setImageUrl(intent.getStringExtra(KEY_JOB_IMAGE), imageLoader)
         binding.textJobName.text = intent.getStringExtra(KEY_JOB_NAME)
         binding.textJobGroup.text = "직업군 : " + intent.getStringExtra(KEY_JOB_GROUP)
@@ -50,6 +52,7 @@ class MapleActivity : AppCompatActivity() {
         binding.textRace.text = "종족명 : " + intent.getStringExtra(KEY_JOB_RACE)
         binding.textMainWeapon.text = "주무기 : " + intent.getStringExtra(KEY_MAIN_WEAPON)
         binding.textMainStat.text = "주스탯 : " + intent.getStringExtra(KEY_MAIN_STAT)
+        //클릭 시 intent 처리
         binding.textNamu.setOnClickListener{
             val uri = Uri.parse(intent.getStringExtra(KEY_NAMU))
             val intent = Intent(Intent.ACTION_VIEW, uri)

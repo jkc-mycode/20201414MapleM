@@ -24,14 +24,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        model = ViewModelProvider(this)[MapleViewModel::class.java]
+        model = ViewModelProvider(this)[MapleViewModel::class.java] //viewModel 초기화
 
-        binding.viewList.apply {
+        binding.viewList.apply { //리스트에 적용될 옵션
             layoutManager = LinearLayoutManager(applicationContext)
             setHasFixedSize(true)
             adapter = mapleAdapter
         }
 
+        //list의 변화를 감지
         model.list.observe(this){
             mapleAdapter.notifyItemRangeInserted(0, mapleAdapter.itemCount)
         }
@@ -42,16 +43,17 @@ class MainActivity : AppCompatActivity() {
         inner class ViewHolder(itemView: View)
             : RecyclerView.ViewHolder(itemView), OnClickListener {
 
-            val txJobName: TextView = itemView.findViewById<TextView>(R.id.text1)
-            val txJovGroup: TextView = itemView.findViewById<TextView>(R.id.text2)
-            val niImage: NetworkImageView = itemView.findViewById<NetworkImageView>(R.id.image)
+            val txJobName: TextView = itemView.findViewById<TextView>(R.id.text1) //직업명
+            val txJovGroup: TextView = itemView.findViewById<TextView>(R.id.text2) //직업군
+            val niImage: NetworkImageView = itemView.findViewById<NetworkImageView>(R.id.image) //네트워크 이미지
 
-            init {
+            init { //네트워크 이미지를 사용하기 위한 초기화
                 niImage.setDefaultImageResId(android.R.drawable.ic_menu_report_image)
                 itemView.setOnClickListener(this)
             }
 
-            override fun onClick(v: View?) {
+            override fun onClick(v: View?) { //클릭시
+                //intent를 통해 이동할 페이지로 넘길 데이터들
                 val intent = Intent(applicationContext, MapleActivity::class.java)
                 intent.putExtra(MapleActivity.KEY_JOB_NAME, model.list.value?.get(adapterPosition)?.job_name)
                 intent.putExtra(MapleActivity.KEY_JOB_GROUP, model.list.value?.get(adapterPosition)?.job_group)
@@ -66,11 +68,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            //직접 만든 Activity, 즉 새로운 layout으로 적용
             val view = layoutInflater.inflate(R.layout.item_job, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            //스크롤 시 새롭게 나올 데이터들
             holder.txJobName.text = model.list.value?.get(position)?.job_name.toString()
             holder.txJovGroup.text = model.list.value?.get(position)?.job_group.toString()
             holder.niImage.setImageUrl(model.getImageUrl(position), model.imageLoader)
