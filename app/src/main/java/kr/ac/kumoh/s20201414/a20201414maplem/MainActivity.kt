@@ -15,8 +15,8 @@ import kr.ac.kumoh.s20201414.a20201414maplem.databinding.ActivityMainBinding
 import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var model: MapleViewModel
+    private lateinit var binding: ActivityMainBinding //viewBinding
+    private lateinit var model: MapleViewModel //viewModel
     val mapleAdapter = MapleAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
